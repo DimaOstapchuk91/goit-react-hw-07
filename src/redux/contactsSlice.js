@@ -32,7 +32,7 @@ const slise = createSlice({
           addContact.pending,
           deleteContact.pending
         ),
-        (state, action) => {
+        state => {
           state.contacts.loading = true;
           state.contacts.error = null;
         }
@@ -54,7 +54,7 @@ const slise = createSlice({
           addContact.fulfilled,
           deleteContact.fulfilled
         ),
-        (state, action) => {
+        state => {
           state.contacts.loading = false;
         }
       );
@@ -70,7 +70,6 @@ export const selectError = state => state.contacts.contacts.error;
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
   (contacts, filter) => {
-    console.log('test');
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter)
     );
