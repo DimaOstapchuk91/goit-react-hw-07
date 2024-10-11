@@ -1,23 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
 import SearchBox from './components/SearchBox/SearchBox';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { fetchContacts } from './redux/contactsOps';
 
 function App() {
-  const [serchUser, setSerchUser] = useState('');
-
-  const contactsData = useSelector(state => state.contacts.items);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    window.localStorage.setItem('contactUser', JSON.stringify(contactsData));
-  }, [contactsData]);
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <>
       <h1 className='pageTitle'>Phonebook</h1>
       <ContactForm />
-      <SearchBox serchUser={serchUser} setSerchUser={setSerchUser} />
+      <SearchBox />
       <ContactList />
     </>
   );
